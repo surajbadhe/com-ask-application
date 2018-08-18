@@ -1,0 +1,20 @@
+version: '2'
+services:
+    sgbauamravatiapplication-app:
+        image: sgbauamravatiapplication
+        environment:
+            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://sgbauamravatiapplication-mysql:3306/sgbauamravatiapplication?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=sgbauamravatiapplication-elasticsearch:9300
+        ports:
+            - 8088:8088
+    sgbauamravatiapplication-mysql:
+        extends:
+            file: mysql.yml
+            service: sgbauamravatiapplication-mysql
+    sgbauamravatiapplication-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: sgbauamravatiapplication-elasticsearch
